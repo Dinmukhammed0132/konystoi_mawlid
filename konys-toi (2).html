@@ -1,0 +1,417 @@
+<!DOCTYPE html>
+<html lang="kk">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Қоныс той — шақыртубет</title>
+<meta name="description" content="Жаңа шаңырағымызға арналған қоныс той шақыртуы">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400;1,500&family=Montserrat:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+
+  :root{
+    --bg:        #FFFDF8;
+    --cream:     #F7F0E3;
+    --beige:     #E9DCC8;
+    --gold:      #C8A96B;
+    --gold-soft: rgba(200,169,107,.32);
+    --gold-mist: rgba(200,169,107,.08);
+    --terracotta:#B9785D;
+    --text:      #3F3832;
+    --muted:     #85786C;
+    --shadow:    rgba(63,56,50,.10);
+
+    --serif: 'Cormorant Garamond', 'Noto Serif', serif;
+    --sans:  'Montserrat', 'Noto Sans', sans-serif;
+
+    --radius-lg: 26px;
+    --radius-md: 20px;
+    --radius-sm: 14px;
+  }
+
+  *{ box-sizing:border-box; }
+  html{ scroll-behavior:smooth; }
+
+  @media (prefers-reduced-motion: reduce){
+    html{ scroll-behavior:auto; }
+    *{ animation-duration:.001ms !important; animation-iteration-count:1 !important; transition-duration:.001ms !important; }
+  }
+
+  body{
+    margin:0;
+    background:var(--bg);
+    color:var(--text);
+    font-family:var(--sans);
+    -webkit-font-smoothing:antialiased;
+    overflow-x:hidden;
+  }
+
+  h1,h2,h3{
+    font-family:var(--serif);
+    font-weight:500;
+    margin:0;
+    color:var(--text);
+  }
+  p{ margin:0; }
+  a{ color:inherit; }
+  ::selection{ background:var(--gold-soft); color:var(--text); }
+
+  .ornament-field{
+    position:fixed;
+    inset:0;
+    z-index:0;
+    pointer-events:none;
+    opacity:.5;
+    background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='120' height='120' viewBox='0 0 120 120'%3E%3Cg fill='none' stroke='%23C8A96B' stroke-width='1'%3E%3Ccircle cx='60' cy='60' r='16'/%3E%3Cpath d='M60 44c8 0 14 6 14 14s-6 16-14 16-14-8-14-16 6-14 14-14z'/%3E%3Cpath d='M60 30v-8M60 98v8M30 60h-8M98 60h8'/%3E%3Cpath d='M42 42l-6-6M78 42l6-6M42 78l-6 6M78 78l6 6'/%3E%3C/g%3E%3C/svg%3E");
+    background-repeat:repeat;
+    background-size:120px 120px;
+  }
+
+  .wrap{ position:relative; z-index:1; }
+  .container{ max-width:520px; margin:0 auto; padding:0 26px; }
+
+  .corner-motif{
+    position:absolute;
+    width:88px;
+    height:88px;
+    opacity:.55;
+    color:var(--gold);
+  }
+  .corner-motif svg{ width:100%; height:100%; display:block; }
+  .corner-motif.tl{ top:20px; left:12px; }
+  .corner-motif.tr{ top:20px; right:12px; transform:scaleX(-1); }
+  .corner-motif.bl{ bottom:20px; left:12px; transform:scaleY(-1); }
+  .corner-motif.br{ bottom:20px; right:12px; transform:scale(-1,-1); }
+
+  .divider{ width:64px; height:18px; margin:0 auto; color:var(--terracotta); opacity:.85; }
+  .divider svg{ width:100%; height:100%; }
+
+  @keyframes riseIn{ to{ opacity:1; transform:translateY(0); } }
+  .float-slow{ animation:floatSlow 9s ease-in-out infinite; }
+  @keyframes floatSlow{
+    0%,100%{ transform:translateY(0) rotate(0deg); }
+    50%{ transform:translateY(-6px) rotate(1.2deg); }
+  }
+
+  /* ============ HERO (SCREEN 1) ============ */
+  .hero{
+    position:relative;
+    min-height:100svh;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    text-align:center;
+    padding:110px 28px 56px;
+    background:radial-gradient(120% 90% at 50% 0%, #FFFFFF 0%, var(--bg) 55%, var(--cream) 100%);
+  }
+  .hero-inner{ max-width:480px; }
+
+  .hero-eyebrow{
+    font-family:var(--serif);
+    font-style:italic;
+    font-size:17px;
+    color:var(--terracotta);
+    opacity:0; transform:translateY(14px);
+    animation:riseIn .9s ease forwards; animation-delay:.15s;
+  }
+  .hero-title{
+    margin-top:14px;
+    font-size:clamp(44px, 12vw, 66px);
+    line-height:1.02;
+    letter-spacing:.045em;
+    opacity:0; transform:translateY(18px);
+    animation:riseIn 1s ease forwards; animation-delay:.35s;
+  }
+  .hero-verse{
+    margin-top:26px;
+    font-family:var(--serif);
+    font-size:20px;
+    line-height:1.55;
+    font-style:italic;
+    opacity:0; transform:translateY(16px);
+    animation:riseIn .9s ease forwards; animation-delay:.6s;
+  }
+  .hero-cta{
+    margin-top:44px;
+    opacity:0; transform:translateY(14px);
+    animation:riseIn .9s ease forwards; animation-delay:.85s;
+  }
+
+  .btn{
+    display:inline-flex;
+    align-items:center;
+    gap:10px;
+    padding:16px 34px;
+    min-height:52px;
+    border-radius:999px;
+    border:1px solid var(--gold);
+    background:linear-gradient(180deg, #D4B77E, var(--gold));
+    color:#FFFDF8;
+    font-family:var(--sans);
+    font-weight:600;
+    font-size:14.5px;
+    letter-spacing:.03em;
+    text-decoration:none;
+    cursor:pointer;
+    box-shadow:0 10px 24px -10px rgba(200,169,107,.55);
+    transition:transform .35s ease, box-shadow .35s ease;
+  }
+  .btn:hover{ transform:translateY(-2px); box-shadow:0 16px 30px -12px rgba(200,169,107,.6); }
+  .btn:active{ transform:translateY(0); }
+  .btn svg{ width:16px; height:16px; }
+
+  /* ============ INVITATION (SCREEN 2) ============ */
+  .invitation{
+    position:relative;
+    padding:88px 0 96px;
+  }
+
+  .reveal{
+    opacity:0;
+    transform:translateY(26px);
+    transition:opacity .9s cubic-bezier(.2,.6,.2,1), transform .9s cubic-bezier(.2,.6,.2,1);
+  }
+  .reveal.is-visible{ opacity:1; transform:translateY(0); }
+
+  .invite-card{
+    background:var(--cream);
+    border:1px solid var(--gold-soft);
+    border-radius:var(--radius-lg);
+    padding:44px 30px;
+    text-align:center;
+    box-shadow:0 24px 50px -32px var(--shadow);
+  }
+
+  .invite-title{
+    font-size:clamp(24px, 6.5vw, 30px);
+    letter-spacing:.02em;
+  }
+
+  .invite-text{
+    margin-top:26px;
+    font-size:16px;
+    line-height:1.8;
+    color:var(--text);
+  }
+  .invite-text + .invite-text{ margin-top:16px; }
+
+  .invite-note{
+    margin-top:16px;
+    font-family:var(--serif);
+    font-style:italic;
+    font-size:18px;
+    line-height:1.6;
+    color:var(--terracotta);
+  }
+
+  .invite-details{
+    margin-top:30px;
+    padding:20px 18px;
+    background:var(--bg);
+    border:1px solid var(--gold-soft);
+    border-radius:var(--radius-md);
+    display:grid;
+    gap:12px;
+    text-align:left;
+  }
+  .invite-detail-row{
+    display:flex;
+    align-items:baseline;
+    gap:10px;
+    font-size:15.5px;
+  }
+  .invite-detail-row .emoji{ font-size:16px; flex:0 0 auto; }
+  .invite-detail-row .label{ color:var(--muted); }
+  .invite-detail-row .value{ color:var(--text); font-weight:500; }
+
+  .invite-closing{
+    margin-top:34px;
+    font-size:19px;
+    line-height:1.5;
+  }
+  .invite-closing .sub{
+    display:block;
+    margin-top:6px;
+    font-family:var(--serif);
+    font-style:italic;
+    color:var(--terracotta);
+    font-size:19px;
+  }
+
+  .signature{
+    margin-top:30px;
+    font-size:13px;
+    color:var(--muted);
+    letter-spacing:.02em;
+  }
+  .signature strong{
+    display:block;
+    margin-top:6px;
+    font-family:var(--serif);
+    font-style:normal;
+    font-size:23px;
+    color:var(--text);
+    letter-spacing:.02em;
+  }
+
+  @media (min-width:768px){
+    .container{ max-width:560px; }
+    .invite-card{ padding:56px 48px; }
+  }
+
+</style>
+</head>
+<body>
+
+<div class="ornament-field" aria-hidden="true"></div>
+
+<div class="wrap">
+
+  <!-- ============ HERO ============ -->
+  <header class="hero">
+    <div class="corner-motif tl float-slow" aria-hidden="true">
+      <svg viewBox="0 0 100 100" fill="none" stroke="currentColor" stroke-width="1.3" stroke-linecap="round">
+        <path d="M8 8 C 8 34, 8 46, 26 52 C 40 57, 44 44, 34 38 C 26 33, 22 42, 30 46"/>
+        <path d="M8 8 H32 M8 8 V32"/>
+      </svg>
+    </div>
+    <div class="corner-motif tr float-slow" aria-hidden="true">
+      <svg viewBox="0 0 100 100" fill="none" stroke="currentColor" stroke-width="1.3" stroke-linecap="round">
+        <path d="M8 8 C 8 34, 8 46, 26 52 C 40 57, 44 44, 34 38 C 26 33, 22 42, 30 46"/>
+        <path d="M8 8 H32 M8 8 V32"/>
+      </svg>
+    </div>
+    <div class="corner-motif bl float-slow" aria-hidden="true">
+      <svg viewBox="0 0 100 100" fill="none" stroke="currentColor" stroke-width="1.3" stroke-linecap="round">
+        <path d="M8 8 C 8 34, 8 46, 26 52 C 40 57, 44 44, 34 38 C 26 33, 22 42, 30 46"/>
+        <path d="M8 8 H32 M8 8 V32"/>
+      </svg>
+    </div>
+    <div class="corner-motif br float-slow" aria-hidden="true">
+      <svg viewBox="0 0 100 100" fill="none" stroke="currentColor" stroke-width="1.3" stroke-linecap="round">
+        <path d="M8 8 C 8 34, 8 46, 26 52 C 40 57, 44 44, 34 38 C 26 33, 22 42, 30 46"/>
+        <path d="M8 8 H32 M8 8 V32"/>
+      </svg>
+    </div>
+
+    <div class="hero-inner">
+      <p class="hero-eyebrow">Ассалаумағалейкум</p>
+      <h1 class="hero-title">МӘУЛІТ МЕРЕКЕСІ</h1>
+      <p class="hero-verse">
+        Жаңа шаңырағымыздың қуанышын бөлісіп,<br>
+        қасиетті Мәуліт мерекесін бірге атап өтуге шақырамыз!
+      </p>
+      <div class="hero-cta">
+        <a href="#invitation" class="btn" id="cta-btn">
+          Шақыртуға кіру
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M12 5v14M6 13l6 6 6-6"/></svg>
+        </a>
+      </div>
+    </div>
+  </header>
+
+  <!-- ============ INVITATION (SCREEN 2) ============ -->
+  <section id="invitation" class="invitation">
+    <div class="container reveal">
+      <div class="invite-card">
+
+        <h2 class="invite-title">🌙 МӘУЛІТ МЕРЕКЕСІНЕ ШАҚЫРУ 🌙</h2>
+
+        <div class="divider" style="margin-top:24px;" aria-hidden="true">
+          <svg viewBox="0 0 100 20" fill="none" stroke="currentColor" stroke-width="1.4">
+            <path d="M0 10 H36"/><circle cx="50" cy="10" r="6"/><path d="M64 10 H100"/>
+          </svg>
+        </div>
+
+        <p class="invite-text" style="margin-top:24px;">
+          Ассалаумағалейкум, ардақты ағайын, қадірлі туған-туыс, дос-жаран!
+        </p>
+        <p class="invite-text">
+          Жаңа шаңырағымыздың қуанышын бөлісіп, қасиетті Мәуліт мерекесін бірге атап өту мақсатында ақ дастархан жайып, Құран оқытып, салауат айтып, дұға жасауға ниет етіп отырмыз.
+        </p>
+
+        <p class="invite-note">
+          Осы қуанышты әрі қасиетті күнде жанымыздан табылып, ақ дастарханымыздан дәм ауыз тиіп, ізгі тілектеріңізді білдіруге шақырамыз.
+        </p>
+
+        <div class="invite-details">
+          <div class="invite-detail-row">
+            <span class="emoji">📅</span>
+            <span class="label">Күні:</span>
+            <span class="value" id="detail-date">12 қыркүйек</span>
+          </div>
+          <div class="invite-detail-row">
+            <span class="emoji">⏰</span>
+            <span class="label">Уақыты:</span>
+            <span class="value" id="detail-time">12:00</span>
+          </div>
+          <div class="invite-detail-row">
+            <span class="emoji">📍</span>
+            <span class="label">Мекенжайы:</span>
+            <span class="value" id="detail-address">Иассы 26</span>
+          </div>
+        </div>
+
+        <div class="divider" style="margin-top:34px;" aria-hidden="true">
+          <svg viewBox="0 0 100 20" fill="none" stroke="currentColor" stroke-width="1.4">
+            <path d="M0 10 H36"/><circle cx="50" cy="10" r="6"/><path d="M64 10 H100"/>
+          </svg>
+        </div>
+
+        <p class="invite-closing" style="margin-top:26px;">
+          Қуанышымызға ортақ болып, берекелі дастарханымыздың қадірлі қонағы болыңыздар!
+        </p>
+
+        <div class="signature">
+          Ізгі ниетпен,
+          <strong id="closing-family">Әмірхан, Гүлзейнеп</strong>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+</div>
+
+<script>
+  /* =========================================================
+     ОСЫ ЖЕРДЕН ҒАНА ӨЗГЕРТІҢІЗ
+     ========================================================= */
+  const eventData = {
+    dateDisplay: "12 қыркүйек",
+    timeDisplay: "12:00",
+    address: "Иассы 26",
+    hostFamily: "Әмірхан, Гүлзейнеп"
+  };
+
+  function init(){
+    document.getElementById('detail-date').textContent = eventData.dateDisplay;
+    document.getElementById('detail-time').textContent = eventData.timeDisplay;
+    document.getElementById('detail-address').textContent = eventData.address;
+    document.getElementById('closing-family').textContent = eventData.hostFamily;
+    setupScrollReveal();
+  }
+
+  function setupScrollReveal(){
+    const targets = document.querySelectorAll('.reveal');
+    if(!('IntersectionObserver' in window)){
+      targets.forEach(t => t.classList.add('is-visible'));
+      return;
+    }
+    const io = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if(entry.isIntersecting){
+          entry.target.classList.add('is-visible');
+          io.unobserve(entry.target);
+        }
+      });
+    }, { threshold: 0.12, rootMargin: '0px 0px -30px 0px' });
+    targets.forEach(t => io.observe(t));
+  }
+
+  document.addEventListener('DOMContentLoaded', init);
+</script>
+
+</body>
+</html>
